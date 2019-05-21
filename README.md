@@ -1,5 +1,5 @@
-#PythonProjectInit
-##Base set up
+# PythonProjectInit
+## Base set up
 
 At core directory of project, use provided commands:
 
@@ -31,7 +31,7 @@ python manage.py migrate
 
 ```
 
-##To start local server
+## To start local server
 
 ```
 python manage.py runserver 0:8000
