@@ -11,6 +11,19 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import environ
+
+root = environ.Path(__file__) - 3
+env = environ.Env(DEBUG=(bool, False),)
+env.read_env('.env')
+
+
+SECRET_KEY = env('SECRET_KEY')
+
+SITE_ROOT = root()
+
+DEBUG = env('DEBUG')
+TEMPLATE_DEBUG = DEBUG
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -74,10 +87,8 @@ WSGI_APPLICATION = 'behealthy_back.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    'default': env.db()
+
 }
 
 
