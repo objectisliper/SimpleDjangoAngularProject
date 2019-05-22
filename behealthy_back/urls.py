@@ -14,8 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path, include
+from behealthy_back.apps.behealthy_api.api_url import urlpatterns as api_url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    re_path(r'^api/', include(api_url)),
 ]
