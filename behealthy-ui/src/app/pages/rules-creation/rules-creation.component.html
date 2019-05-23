@@ -1,0 +1,58 @@
+<div style="margin: 20px 15px;">
+  <div class="row" *ngFor="let field of expressions_array.expressions, let i = index">
+
+    <mat-form-field *ngIf="field.related_to_previous_exp_by">
+      <mat-label>Related to previous expression by</mat-label>
+      <mat-select [(ngModel)]="field.related_to_previous_exp_by">
+        <mat-option *ngFor="let relation of expressions_relations" [value]="relation">
+          {{relation}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Parameter</mat-label>
+      <mat-select [(ngModel)]="field.parameter">
+        <mat-option *ngFor="let option of options" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Related by</mat-label>
+      <mat-select [(ngModel)]="field.related_to_value_by">
+        <mat-option *ngFor="let operator of value_relations" [value]="operator">
+          {{operator}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Value</mat-label>
+      <input type="number" *ngIf="!isAbdominalPainOrGenderChosen(i)" matInput placeholder="Value" [(ngModel)]="field.value">
+      <mat-select [(ngModel)]="field.value" *ngIf="isAbdominalPainOrGenderChosen(i)">
+        <mat-option *ngFor="let value of (field.parameter === 'gender') ? gender : abdominal_pain" [value]="value">
+          {{value}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="expressions_array.expressions.length === i + 1">
+      <mat-label>Question</mat-label>
+      <textarea matInput placeholder="Type a question" [(ngModel)]="expressions_array.question"></textarea>
+    </mat-form-field>
+
+    <button (click)="addExpression()" [disabled]="isOneOfFieldsEmpty(i)" *ngIf="expressions_array.expressions.length === i + 1" mat-raised-button color="primary" style="margin-left: 20px">
+      Add Expression
+    </button>
+
+    <button (click)="deleteExpression(i)" *ngIf="i !== 0" mat-raised-button color="warn" style="margin-left: 20px">
+      Delete
+    </button>
+  </div>
+
+  <button (click)="saveRule()" [disabled]="isAnyOfFieldsEmpty()" mat-raised-button color="primary" style="margin-left: 20px">
+    Save Rule
+  </button>
+</div>

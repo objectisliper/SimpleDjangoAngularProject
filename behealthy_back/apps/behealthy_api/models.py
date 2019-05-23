@@ -5,7 +5,6 @@ from django.contrib.postgres.fields import JSONField
 
 
 class Question(models.Model):
-    name = models.CharField(max_length=200)
     description = models.TextField(null=True)
 
 

@@ -11,10 +11,7 @@ class QuestionsApi(APIView):
         serialized_questions = QuestionRulesSerializer(questions, many=True)
         return Response({"data": serialized_questions.data})
 
-    # def put(self, request):
-    #     tokens, is_created = TrelloTokens.objects.update_or_create(
-    #                                     user_id=request.user.id,
-    #                                     defaults={'token': request.data['token'],
-    #                                               'api_key': request.data['api_key']})
-    #     serialized_tokens = TrelloTokensSerializer(tokens)
-    #     return Response({"data": serialized_tokens.data})
+    def post(self, request):
+        created_question = Question.objects.create(description=request.data['question'])
+        created_rule = QuestionRules.objects.create(expression=request.data['expressions'], question=created_question)
+        return Response({"data": {'rule_id': created_rule.id}})
