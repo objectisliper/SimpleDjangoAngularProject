@@ -1,0 +1,14 @@
+.container{
+  margin: 0px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 84vh;
+
+}
+
+.form{
+  display: flex;
+  flex-flow: column;
+  width: 50%;
+}

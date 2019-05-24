@@ -23,7 +23,7 @@ class Expression(AbstractExpression):
         return comparise(self.parameters[self.parameter], self.related_to_value_by, self.value)
 
 
-def expressions_comparisson(first_expression, second_expression, operator):
+def expressions_comparison(first_expression, second_expression, operator):
     return {
         'or': first_expression or second_expression,
         'and': first_expression and second_expression,
@@ -42,11 +42,15 @@ def comparise(parameter, operator, value):
     }[operator]
 
 
+def get_missed_params(existed_params):
+    params = {'gender', 'age', 'abdominal_pain', 'systolic_bp', 'diastolic_bp'}
+    existed_params = set(existed_params.keys())
+    return params - existed_params
+
+
 def interpret_expression(parameters, expression_dict, index=0):
-    exp = Expression(expression_dict['expressions'][index], parameters)
+    exp = Expression(expression_dict[index], parameters)
     resulted_bool = exp.interpret()
-    if len(expression_dict['expressions']) > 1 and index < len(expression_dict['expressions']) - 1:
-        resulted_bool = expressions_comparisson(resulted_bool,
-                                                interpret_expression(parameters, expression_dict, index + 1),
-                                                expression_dict['expressions'][index + 1]['related_to_previous_exp_by'])
+    if len(expression_dict) > 1 and index < len(expression_dict) - 1:
+        resulted_bool = expressions_comparison(resulted_bool, interpret_expression(parameters, expression_dict, index + 1), expression_dict[index + 1]['related_to_previous_exp_by'])
     return resulted_bool

@@ -1,1 +1,44 @@
+<div class="container">
+  <div class="form">
 
+    <mat-form-field>
+      <mat-label>What is your gender?</mat-label>
+      <mat-select [(ngModel)]="questionForm.gender">
+        <mat-option *ngFor="let gender of genders" [value]="gender">
+          {{gender}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>What is your age?</mat-label>
+      <input type="number" matInput placeholder="age" [(ngModel)]="questionForm.age">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Do you have abdominal pain?</mat-label>
+      <mat-select [(ngModel)]="questionForm.abdominal_pain">
+        <mat-option *ngFor="let answer of abdominal_pain_answers" [value]="answer">
+          {{answer}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>What is your systolic bp?</mat-label>
+      <input type="number" matInput placeholder="systolic bp" [(ngModel)]="questionForm.systolic_bp">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>What is your diastolic bp?</mat-label>
+      <input type="number" matInput placeholder="diastolic bp" [(ngModel)]="questionForm.diastolic_bp">
+    </mat-form-field>
+
+    <button (click)="processForm()" [disabled]="isAllFieldsEmpty()" mat-raised-button color="primary" >
+      Add Expression
+    </button>
+  </div>
+</div>
+<div class="card-container" *ngIf="questions && questions.length > 0" style="margin: 0px 15px;">
+  <mat-card *ngFor="let question of questions" style="width: 50%;margin: 20px auto;">{{question}}</mat-card>
+</div>

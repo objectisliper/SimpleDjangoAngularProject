@@ -36,3 +36,12 @@ python manage.py migrate
 ```
 python manage.py runserver 0:8000
 ```
+
+# Front-end starting
+
+Go to behealthy-ui folder, and just do this commands
+
+```
+    npm install
+    ng serve
+```
