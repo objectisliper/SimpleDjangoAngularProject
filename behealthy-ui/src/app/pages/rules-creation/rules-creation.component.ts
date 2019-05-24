@@ -44,6 +44,9 @@ export class RulesCreationComponent implements OnInit {
 
   deleteExpression(index: number): void {
     this.expressions_array.expressions.splice(index, 1);
+    if (index === 0){
+      delete this.expressions_array.expressions[0].related_to_previous_exp_by;
+    }
   }
 
   isOneOfFieldsEmpty(index: number): boolean {

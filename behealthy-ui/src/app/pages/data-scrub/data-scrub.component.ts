@@ -60,6 +60,7 @@ export class DataScrubComponent implements OnInit {
           });
         } else {
           this.questionApiService.getQuestions(response['data']).subscribe( questions => {
+            this.questions.splice(0);
             for (const question of questions['data']) {
               this.questions.push(question['description']);
             }

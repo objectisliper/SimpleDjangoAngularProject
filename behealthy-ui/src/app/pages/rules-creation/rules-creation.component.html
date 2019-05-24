@@ -22,7 +22,7 @@
     <mat-form-field>
       <mat-label>Related by</mat-label>
       <mat-select [(ngModel)]="field.related_to_value_by">
-        <mat-option *ngFor="let operator of value_relations" [value]="operator">
+        <mat-option *ngFor="let operator of field.parameter !== 'gender' && field.parameter !== 'abdominal_pain' ? value_relations : [value_relations[0]]" [value]="operator">
           {{operator}}
         </mat-option>
       </mat-select>
@@ -43,16 +43,16 @@
       <textarea matInput placeholder="Type a question" [(ngModel)]="expressions_array.question"></textarea>
     </mat-form-field>
 
-    <button (click)="addExpression()" [disabled]="isOneOfFieldsEmpty(i)" *ngIf="expressions_array.expressions.length === i + 1" mat-raised-button color="primary" style="margin-left: 20px">
+    <button (click)="addExpression()" *ngIf="expressions_array.expressions.length === i + 1" mat-raised-button color="primary" style="margin-left: 20px">
       Add Expression
     </button>
 
-    <button (click)="deleteExpression(i)" *ngIf="i !== 0" mat-raised-button color="warn" style="margin-left: 20px">
+    <button (click)="deleteExpression(i)" *ngIf="expressions_array.expressions.length > 1" mat-raised-button color="warn" style="margin-left: 20px">
       Delete
     </button>
   </div>
 
-  <button (click)="saveRule()" [disabled]="isAnyOfFieldsEmpty()" mat-raised-button color="primary" style="margin-left: 20px">
+  <button (click)="saveRule()" [disabled]="isAnyOfFieldsEmpty()" mat-raised-button color="primary" class="row">
     Save Rule
   </button>
 </div>
